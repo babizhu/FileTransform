@@ -68,7 +68,9 @@ class GenXml{
 
     private void printRow( Row row ){
         for( Cell cell : row ) {
-            System.out.print( cell + " " );
+            cell.setCellType(Cell.CELL_TYPE_STRING);
+            String data = cell.getStringCellValue();
+            System.out.print( data + " " );
         }
         System.out.println();
 
@@ -81,11 +83,11 @@ class GenXml{
         for( FieldElement element : fields ) {
             sb.append( "<" ).append( element.name ).append( ">" );
 
-            Cell cell = row.getCell( i );
+            Cell cell = row.getCell( i++ );
             String data = "";
             if( cell != null ){
-
-                data = row.getCell( i++ ).toString();
+                cell.setCellType(Cell.CELL_TYPE_STRING);
+                data = cell.getStringCellValue();
             }
             if( element.type.equals( "int" ) ) {
                 int pointPos = data.indexOf( '.' );
