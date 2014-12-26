@@ -59,11 +59,14 @@ public class GenXmlAndCfg {
      * 生成CfgInit.java文件
      */
     private void buildCfgInit(){
+        String packageInFile = PathCfg.JAVA_PACKAGE_PATH;
+        packageInFile = packageInFile.substring( 0, packageInFile.length() - 1 );//去掉配置表中最后一个.
         String file = "cfgInit.templet";
         TempletFile t = new TempletFile( TempletType.JAVA, file );
         String fileContent = t.getTempletStr();
         fileContent = fileContent.replace( "#pack#", packageImportStr )
-                .replace( "#data#", initStr );
+                .replace( "#data#", initStr )
+                .replace(D.PACAKAGE_NAME_TAG, packageInFile);
 //        System.out.println(fileContent);
         String path = PathCfg.EXCEL_OUTPUT_JAVA_PATH + "/CfgInit" + D.JAVA_FILE_SUFFIXES;
         FileUtil.writeTextFile( path, fileContent );

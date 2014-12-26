@@ -42,7 +42,7 @@ class GenTempletCfg extends AbstractGenJava {
     }
 
     private void genMisc() {
-        String packageInFile = PathCfg.EXCEL_OUTPUT_JAVA_PATH.replace('/', '.') + packageName;
+        String packageInFile = PathCfg.JAVA_PACKAGE_PATH + packageName;
         //HeroTemplets===>hero
         String xmlPath = templetClass.substring(0, templetClass.indexOf("Templet"));
         xmlPath = Util.firstToLowCase( xmlPath ) + ".xml";

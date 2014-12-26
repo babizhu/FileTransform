@@ -36,6 +36,11 @@ public class PathCfg{
      */
     public static final String EXCEL_OUTPUT_JAVA_PATH;
 
+    /**
+     * 生成的java文件的包路径
+     */
+    public static final String JAVA_PACKAGE_PATH;
+
 
     /**
      * 数据库的模板文件路径
@@ -73,6 +78,7 @@ public class PathCfg{
 
         JAVA_TEMPLET_PATH = prop.getProperty( "javaTempletPath" ).trim();
         DB_TEMPLET_PATH = prop.getProperty( "dbTempletPath" ).trim();
+        JAVA_PACKAGE_PATH = prop.getProperty( "javaPackagePath" ).trim();
 
     }
 

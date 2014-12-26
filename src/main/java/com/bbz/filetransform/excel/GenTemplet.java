@@ -71,7 +71,7 @@ class GenTemplet extends AbstractGenJava {
     }
 
     private void genMisc() {
-        String packageInFile = PathCfg.EXCEL_OUTPUT_JAVA_PATH.replace( '/', '.' ) + packageName;
+        String packageInFile = PathCfg.JAVA_PACKAGE_PATH + packageName;
         src = src.
                 replace(D.DATE_TAG, DateFormat.getDateTimeInstance().format(new Date())).
                 replace(D.CLASS_NAME_TAG, className).
