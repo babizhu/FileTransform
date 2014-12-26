@@ -46,7 +46,7 @@ class GenTempletCfg extends AbstractGenJava {
         //HeroTemplets===>hero
         String xmlPath = templetClass.substring(0, templetClass.indexOf("Templet"));
         xmlPath = Util.firstToLowCase( xmlPath ) + ".xml";
-        xmlPath = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + "/" + xmlPath;
+        xmlPath = PathCfg.XML_PATH_IN_CONFIGJAVA_FILE + packageName + "/" + xmlPath;
 
         src = src.
                 replace(D.DATE_TAG, DateFormat.getDateTimeInstance().format(new Date())).
