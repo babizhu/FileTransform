@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="227443e5-e674-4038-8e6a-2e4493713c88" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java" afterPath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java" afterPath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -46,11 +47,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenXml.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GenXml.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23762377" vertical-offset="856" max-vertical-offset="1664">
-              <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1048" max-vertical-offset="1712">
+              <caret line="99" column="13" selection-start-line="85" selection-start-column="12" selection-end-line="99" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenJson.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.61782175" vertical-offset="1096" max-vertical-offset="1808">
+              <caret line="96" column="31" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -100,9 +111,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenTemplet.java" />
         <option value="$PROJECT_DIR$/resource/path.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/PathCfg.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXmlAndCfg.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java" />
       </list>
     </option>
   </component>
@@ -670,7 +681,7 @@
       <workItem from="1419577781255" duration="1719000" />
       <workItem from="1419579652467" duration="238000" />
       <workItem from="1419580621677" duration="966000" />
-      <workItem from="1419582601571" duration="756000" />
+      <workItem from="1419582601571" duration="1085000" />
     </task>
     <task id="LOCAL-00001" summary="解决了propties文件的中文字符集问题，确保该文件采用utf-8的方式保存">
       <created>1419575860515</created>
@@ -680,11 +691,15 @@
       <created>1419578379404</created>
       <updated>1419578379404</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="处理了表格内容为公式问题">
+      <created>1419583374615</created>
+      <updated>1419583374615</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16664000" />
+    <option name="totallyTimeSpent" value="16993000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="916" extended-state="6" />
@@ -737,7 +752,8 @@
     </option>
     <MESSAGE value="解决了propties文件的中文字符集问题，确保该文件采用utf-8的方式保存" />
     <MESSAGE value="解决了，如果没填数据，导致异常的bug，这种情况下会返回一个&quot;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="解决了，如果没填数据，导致异常的bug，这种情况下会返回一个&quot;&quot;" />
+    <MESSAGE value="处理了表格内容为公式问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="处理了表格内容为公式问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1051,14 +1067,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1096" max-vertical-offset="1744">
-          <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/util/Util.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1040">
@@ -1144,8 +1152,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23762377" vertical-offset="856" max-vertical-offset="1664">
-          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1048" max-vertical-offset="1712">
+          <caret line="99" column="13" selection-start-line="85" selection-start-column="12" selection-end-line="99" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.61782175" vertical-offset="1096" max-vertical-offset="1808">
+          <caret line="96" column="31" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
           <folding />
         </state>
       </provider>

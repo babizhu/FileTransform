@@ -72,26 +72,30 @@ class GenJson{
 
     private void printRow( Row row ){
         for( Cell cell : row ) {
-            System.out.print( cell + " " );
+            cell.setCellType(Cell.CELL_TYPE_STRING);
+            String data = cell.getStringCellValue();
+            System.out.print( data + " " );
         }
         System.out.println();
 
     }
-
     private String genContent( Row row ){
-        printRow( row );
+        //printRow( row );不出错，无需打印
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for( FieldElement element : fields ) {
             sb.append( "\"" ).append( element.name ).append( "\":" );
 
-            Cell cell = row.getCell( i );
+            Cell cell = row.getCell( i++ );
             String data = "";
             if( cell != null ){
-
-                data = row.getCell( i++ ).toString();
+                cell.setCellType(Cell.CELL_TYPE_STRING);
+                data = cell.getStringCellValue();
             }
             if( element.type.equals( "int" ) ) {
+                if( data.trim().isEmpty() ){
+                    data = "0";
+                }
                 int pointPos = data.indexOf( '.' );
                 if( pointPos != -1 ) {
                     data = data.substring( 0, pointPos );//去掉末尾的.0

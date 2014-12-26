@@ -90,6 +90,9 @@ class GenXml{
                 data = cell.getStringCellValue();
             }
             if( element.type.equals( "int" ) ) {
+                if( data.trim().isEmpty() ){
+                    data = "0";
+                }
                 int pointPos = data.indexOf( '.' );
                 if( pointPos != -1 ) {
                     data = data.substring( 0, pointPos );//去掉末尾的.0
