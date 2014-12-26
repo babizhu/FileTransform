@@ -1,0 +1,16 @@
+package com.bbz.sanguo.cfg;
+
+#pack#
+
+/**
+ * user         LIUKUN
+ * time         2014-4-25 13:52
+ * 初始化所有的配置文件
+ */
+
+public class CfgInit{
+    public static void init(){
+
+       #data#
+    }
+}

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.bbz.base</groupId>
+    <artifactId>FileTransform</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.10-beta2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.12.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+
+        <groupId>com.bbz.misc</groupId>
+        <artifactId>tool</artifactId>
+        <version>1.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <!--用于maven的编译-->
+            <resource>
+                <directory>../resource</directory>
+                <targetPath>../../resource/</targetPath>
+                <!--<excludes>-->
+                <!--<exclude>**/*.java</exclude>-->
+                <!--</excludes>-->
+            </resource>
+
+            <!--<resource>-->
+            <!--<directory>../Game/resource</directory>-->
+            <!--<targetPath>${project.build.directory}/resource</targetPath>-->
+            <!--<excludes>-->
+            <!--<exclude>**/*.java</exclude>-->
+            <!--</excludes>-->
+            <!--</resource>-->
+            <!--<resource>
+                <directory>src/main/resources</directory>
+                <targetPath>${project.build.outputDirectory}</targetPath>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>-->
+        </resources>
+        <!--<testSourceDirectory>src/test/java</testSourceDirectory>-->
+        <!--<testResources>-->
+            <!--<testResource>-->
+                <!--<directory>src/test/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<excludes>-->
+                    <!--<exclude>**/*.java</exclude>-->
+                <!--</excludes>-->
+            <!--</testResource>-->
+        <!--</testResources>-->
+
+        <!--<pluginManagement>-->
+            <!--<plugins>-->
+                <!--<plugin>-->
+                    <!--<groupId>org.eclipse.m2e</groupId>-->
+                    <!--<artifactId>lifecycle-mapping</artifactId>-->
+                    <!--<version>1.0.0</version>-->
+                    <!--<configuration>-->
+                        <!--<lifecycleMappingMetadata>-->
+                            <!--<pluginExecutions>-->
+                                <!--<pluginExecution>-->
+                                    <!--<pluginExecutionFilter>-->
+                                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                                        <!--<artifactId>maven-dependency-plugin</artifactId>-->
+                                        <!--<versionRange>[2.0,)</versionRange>-->
+                                        <!--<goals>-->
+                                            <!--<goal>copy-dependencies</goal>-->
+                                        <!--</goals>-->
+                                    <!--</pluginExecutionFilter>-->
+                                    <!--<action>-->
+                                        <!--<ignore/>-->
+                                    <!--</action>-->
+                                <!--</pluginExecution>-->
+                            <!--</pluginExecutions>-->
+                        <!--</lifecycleMappingMetadata>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
+            <!--</plugins>-->
+        <!--</pluginManagement>-->
+
+        <plugins>
+
+            <!-- 打包源码一起发布到maven仓库中
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+
+            <!-- 生成可执行JAR包命令 maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.properties</exclude>
+                        <!--<exclude>**/*.xml</exclude>-->
+                    </excludes>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>com.bbz.filetransform.Lancher</mainClass>
+                            <!--<mainClass>com.bbz.sanguo.cfg.fighter.FighterTempletCfg</mainClass>-->
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>./</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- 拷贝依赖的jar包到lib目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 生成可执行JAR包命令 maven-jar-plugin end -->
+            <!-- 生成可执行JAR包命令 maven-shade-plugin <plugin> <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId> <version>1.2.1</version> <executions>
+                <execution> <phase>package</phase> <goals> <goal>shade</goal> </goals> <configuration>
+                <transformers> <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <mainClass>***.Application ***</mainClass> </transformer>
+                </transformers> </configuration> </execution> </executions> </plugin> -->
+        </plugins>
+    </build>
+</project>
