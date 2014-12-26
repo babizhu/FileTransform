@@ -85,7 +85,12 @@ class GenJson{
         for( FieldElement element : fields ) {
             sb.append( "\"" ).append( element.name ).append( "\":" );
 
-            String data = row.getCell( i++ ).toString();
+            Cell cell = row.getCell( i );
+            String data = "";
+            if( cell != null ){
+
+                data = row.getCell( i++ ).toString();
+            }
             if( element.type.equals( "int" ) ) {
                 int pointPos = data.indexOf( '.' );
                 if( pointPos != -1 ) {

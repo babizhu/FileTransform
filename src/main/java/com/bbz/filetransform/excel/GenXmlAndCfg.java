@@ -46,6 +46,7 @@ public class GenXmlAndCfg {
                 genAll( file.getAbsolutePath() );
             } else {
                 String strFileName = file.getAbsolutePath();
+                System.out.println( "开始处理 " + strFileName );
                 genOne( strFileName );
                 System.out.println( "处理完毕 " + strFileName );
 
