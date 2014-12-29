@@ -1,6 +1,7 @@
 package com.bbz.filetransform.excel;
 
 
+import com.bbz.filetransform.PathCfg;
 import lombok.Data;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -40,7 +41,7 @@ class ParseExcel{
         path[1] = temp.substring( temp.indexOf( '_' ) + 1, temp.length() );//去除中文名称
         openFile( excelFile );
         initStr = path[1] + "TempletCfg.init();";
-        importStr = "import com.bbz.sanguo.cfg." + path[0] + "." + path[1] + "TempletCfg;";
+        importStr = "import " + PathCfg.JAVA_PACKAGE_PATH + path[0] + "." + path[1] + "TempletCfg;";
     }
 
     public static void main( String[] args ){
