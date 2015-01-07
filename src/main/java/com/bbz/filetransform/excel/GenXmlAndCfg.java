@@ -42,10 +42,15 @@ public class GenXmlAndCfg {
             return;
         }
         for( File file : files ) {
+            String strFileName = file.getAbsolutePath();
+
             if( file.isDirectory() ) {
-                genAll( file.getAbsolutePath() );
+                if( !strFileName.endsWith( "define" )){//define目录中是D.java的内容不能采取这个方法生成
+
+                    genAll( file.getAbsolutePath() );
+                }
             } else {
-                String strFileName = file.getAbsolutePath();
+
                 System.out.println( "开始处理 " + strFileName );
                 genOne( strFileName );
                 System.out.println( "处理完毕 " + strFileName );

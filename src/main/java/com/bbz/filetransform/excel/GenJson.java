@@ -35,7 +35,8 @@ class GenJson{
     void generate(){
 
         StringBuilder sb = new StringBuilder( "{\"" );
-        sb.append( className ).append( "s" ).append( "\":[" );
+        //sb.append( className ).append( "s" ).append( "\":[" );
+        sb.append( "arr" ).append( "s" ).append( "\":[" );//前端希望此处写死为arrs
         for( Row row : sheet ) {
             if( row.getRowNum() < D.EXCEL_HEAD_COUNT ) {
                 continue;
