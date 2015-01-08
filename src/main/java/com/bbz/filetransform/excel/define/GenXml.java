@@ -52,7 +52,7 @@ public class GenXml extends AbstractGen{
 //        System.out.println( sb.toString() );
 
         String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".xml";
-        System.out.println( path);
+//        System.out.println( path);
         FileUtil.writeTextFile( path, sb.toString() );
 
     }
@@ -68,7 +68,7 @@ public class GenXml extends AbstractGen{
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( getCellStr( cell, fieldIsIntOrLong( element ) ) );
+            sb.append( getCellStr( cell, element  ) );
             sb.append( "\" " );
 
         }

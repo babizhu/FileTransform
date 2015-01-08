@@ -46,6 +46,7 @@ public class GenDefine{
     public void generate(){
 
         new GenXml( className, packageName, sheet ).genXml();
+        new GenJava( className,packageName,sheet ).genJAVA();
 
     }
 

@@ -1,6 +1,7 @@
 package com.bbz.filetransform.excel;
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.cfg.GenXmlAndCfg;
 
 /**
  * Created with IntelliJ IDEA.

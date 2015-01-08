@@ -1,7 +1,10 @@
-package com.bbz.filetransform.excel;
+package com.bbz.filetransform.excel.cfg;
 
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.AbstractGen;
+import com.bbz.filetransform.excel.FieldElement;
+import com.bbz.filetransform.excel.FieldElimentManager;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
 import org.apache.poi.ss.usermodel.Cell;
@@ -54,13 +57,13 @@ class GenXml extends AbstractGen{
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for( FieldElement element : fields ) {
-            sb.append( "\"" ).append( element.name ).append( "\":" );
+            sb.append( "\"" ).append( element.getName() ).append( "\":" );
 
             Cell cell = row.getCell( i++ );
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( "\"" ).append( getCellStr( cell, fieldIsIntOrLong(element) ) );
+            sb.append( "\"" ).append( getCellStr( cell, element ) );
             sb.append( "\"," );
 
         }

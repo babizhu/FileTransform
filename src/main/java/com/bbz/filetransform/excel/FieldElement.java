@@ -5,14 +5,15 @@ import lombok.Data;
 /**
  * user         LIUKUN
  * time         2015-1-8 11:58
+ * 映射到excel的一列数据
  */
 
 @Data
 public class FieldElement {
-    String annotation;//field的注释
-    String name;
-    String type;
-    boolean hasClient;
+    private String annotation;//field的注释
+    private String name;
+    private String type;
+    private boolean hasClient;
 
     @Override
     public String toString() {

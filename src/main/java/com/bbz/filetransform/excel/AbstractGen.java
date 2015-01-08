@@ -33,16 +33,17 @@ public class AbstractGen{
 
     /**
      * 从excel中获取单元格的字符串内容，int和long型的字符串末尾会产生".0"，因此这里也要过滤掉
-     * 如果cell为null，int型或者long型则返回空”0“，其余情况返回""(空字符串)
+     * 如果cell为null，数字型（int,long,float,double）返回空”0“，其余情况返回""(空字符串)
+     * float型会在数字后面增加"F"
      *
-     * @param cell
-     * @param isIntOrLong
-     * @return
+     * @param cell          单元格
+     * @param fieldElement  字段
+     * @return      单元格的内容
      */
-    public String getCellStr( Cell cell, boolean isIntOrLong ){
+    public String getCellStr( Cell cell, FieldElement fieldElement){
         String data = "";
         if( cell == null ) {
-            if( isIntOrLong ) {
+            if( isNumber(fieldElement) ) {
                 return "0";
 
             }
@@ -51,19 +52,38 @@ public class AbstractGen{
 
         cell.setCellType( Cell.CELL_TYPE_STRING );
         data = cell.getStringCellValue().trim();
-        if( isIntOrLong ) {
+        if( fieldIsIntOrLong( fieldElement ) ) {
 
             int pointPos = data.indexOf( '.' );
             if( pointPos != -1 ) {
                 data = data.substring( 0, pointPos );//去掉末尾的.0
             }
         }
+        if( fieldIsFloat( fieldElement )){
+            data += "F";
+        }
         return data;
 
     }
 
     public boolean fieldIsIntOrLong( FieldElement fieldElement ){
-        return fieldElement.type.equals( "int" ) || fieldElement.type.equals( "long" );
+        return fieldElement.getType().equalsIgnoreCase( "int" ) || fieldElement.getType().equalsIgnoreCase( "long" );
+    }
+
+    public boolean fieldIsFloat( FieldElement fieldElement ){
+        //System.out.println(fieldElement.type );
+        return fieldElement.getType().equalsIgnoreCase( "float" );
+    }
+
+    /**
+     * 判断字段是否数字类型包括（int,long,double,float）
+     * @param fieldElement  字段
+     * @return  true    数字
+     *
+     */
+    public boolean isNumber( FieldElement fieldElement ){
+        return fieldElement.getType().equalsIgnoreCase( "int" ) || fieldElement.getType().equalsIgnoreCase( "long" ) ||
+        fieldElement.getType().equalsIgnoreCase( "double" ) || fieldElement.getType().equalsIgnoreCase( "float" );
     }
 
 }

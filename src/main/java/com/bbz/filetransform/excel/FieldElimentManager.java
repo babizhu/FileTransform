@@ -7,7 +7,6 @@ package com.bbz.filetransform.excel;
  * Time: 下午4:54
  */
 
-import lombok.Data;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.ArrayList;
@@ -37,10 +36,10 @@ public class FieldElimentManager {
         int maxCol = sheet.getRow(0).getLastCellNum();
         for (int col = 0; col < maxCol; col++) {
             FieldElement fe = new FieldElement();
-            fe.annotation = sheet.getRow(0).getCell(col).toString();
-            fe.hasClient = Boolean.parseBoolean(sheet.getRow(1).getCell(col).toString());
-            fe.type = sheet.getRow(2).getCell(col).toString();
-            fe.name = sheet.getRow(3).getCell(col).toString();
+            fe.setAnnotation( sheet.getRow(0).getCell(col).toString() );
+            fe.setHasClient( Boolean.parseBoolean(sheet.getRow(1).getCell(col).toString()) );
+            fe.setType( sheet.getRow(2).getCell(col).toString() );
+            fe.setName( sheet.getRow(3).getCell(col).toString() );
             fields.add(fe);
             //System.out.println( fe );
         }

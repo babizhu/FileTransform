@@ -61,7 +61,9 @@ public class #className# {
 		return #mapName#s.get( templetId );
 	}
 
-	/*自定义代码开始*/$manualWork$/*自定义代码结束*/
+	/*自定义代码开始*/
+	$manualWork$
+	/*自定义代码结束*/
 
 	public static void main(String[] args) {
 

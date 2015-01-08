@@ -1,7 +1,9 @@
-package com.bbz.filetransform.excel;
+package com.bbz.filetransform.excel.cfg;
 
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.FieldElement;
+import com.bbz.filetransform.excel.FieldElimentManager;
 import com.bbz.filetransform.templet.TempletFile;
 import com.bbz.filetransform.templet.TempletType;
 import com.bbz.filetransform.util.D;
@@ -63,7 +65,7 @@ class GenTemplet extends AbstractGenJava {
 
         StringBuilder sb = new StringBuilder();
         for (FieldElement fe : fields) {
-            String temp = fe.name + " = \" + " + fe.name + " + \",";
+            String temp = fe.getName() + " = \" + " + fe.getName() + " + \",";
             sb.append(temp);
         }
 
@@ -102,11 +104,11 @@ class GenTemplet extends AbstractGenJava {
     private void genConstruct() {
         StringBuilder sb = new StringBuilder();
         for (FieldElement fe : fields) {
-            sb.append(fe.name).append(" = ").
+            sb.append(fe.getName()).append(" = ").
                     append(parseJavaType(fe)).
-                    append(fe.name).
+                    append(fe.getName()).
                     append("\").trim()");
-            if (!fe.type.equals("String")) {
+            if (!fe.getType().equals( "String" )) {
                 sb.append(" )");
             }
             sb.append(";").
@@ -122,11 +124,11 @@ class GenTemplet extends AbstractGenJava {
     private String genField(FieldElement fe) {
         String ret = new TempletFile( TempletType.JAVA, "fieldTemplet.t").getTempletStr();
         ret = ret.
-                replace(D.ANNOTATION_TAG, fe.annotation).
-                replace(D.FIELD_TYPE_TAG, fe.type).
-                replace(D.FIELD_TAG, fe.name).
-                replace(D.METHOD_NAME_GET_TAG, Util.genGet(fe.name)).
-                replace(D.METHOD_NAME_SET_TAG, Util.genSet(fe.name));
+                replace(D.ANNOTATION_TAG, fe.getAnnotation()).
+                replace(D.FIELD_TYPE_TAG, fe.getType()).
+                replace(D.FIELD_TAG, fe.getName()).
+                replace(D.METHOD_NAME_GET_TAG, Util.genGet(fe.getName())).
+                replace(D.METHOD_NAME_SET_TAG, Util.genSet(fe.getName()));
 
         return ret;
     }

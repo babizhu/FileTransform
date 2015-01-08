@@ -1,6 +1,6 @@
 package com.bbz.filetransform;
 
-import com.bbz.filetransform.excel.GenXmlAndCfg;
+import com.bbz.filetransform.excel.cfg.GenXmlAndCfg;
 
 /**
  * user         LIUKUN

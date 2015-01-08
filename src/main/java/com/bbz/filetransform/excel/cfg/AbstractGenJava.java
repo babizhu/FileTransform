@@ -1,7 +1,8 @@
-package com.bbz.filetransform.excel;
+package com.bbz.filetransform.excel.cfg;
 
 import com.bbz.filetransform.PathCfg;
 import com.bbz.filetransform.base.IGen;
+import com.bbz.filetransform.excel.FieldElement;
 import com.bbz.filetransform.templet.TempletFile;
 import com.bbz.filetransform.templet.TempletType;
 import com.bbz.filetransform.util.D;
@@ -47,7 +48,7 @@ abstract class AbstractGenJava implements IGen{
 
 
     protected String parseJavaType(FieldElement fe){
-        String type = fe.type;
+        String type = fe.getType();
         if( type.equals("int") ) {
             return "Integer.parseInt( element.getChildText(\"";
         } else if( type.equals("short") ) {

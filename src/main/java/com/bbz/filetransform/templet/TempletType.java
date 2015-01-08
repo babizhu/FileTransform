@@ -8,17 +8,26 @@ import com.bbz.filetransform.PathCfg;
  * Date: 13-11-21
  * Time: 下午3:21
  */
-public enum TempletType {
-    DB {
+public enum TempletType{
+    DB{
         @Override
-        String getDir() {
+        String getDir(){
             return PathCfg.DB_TEMPLET_PATH;
         }
     },
-    JAVA {
+    JAVA{
         @Override
-        String getDir() {
+        String getDir(){
             return PathCfg.JAVA_TEMPLET_PATH;
+
+        }
+
+
+    },
+    DJAVA{
+        @Override
+        String getDir(){
+            return PathCfg.D_JAVA_TEMPLET_PATH;
 
         }
     };

@@ -54,6 +54,11 @@ public class PathCfg{
     public static final String JAVA_TEMPLET_PATH;
 
     /**
+     * D.java代码的模板文件路径
+     */
+    public static final String D_JAVA_TEMPLET_PATH;
+
+    /**
      *
      * 生成的XxTempletConfig.java文件中所需要的xml路径.
      */
@@ -83,6 +88,8 @@ public class PathCfg{
 
         JAVA_TEMPLET_PATH = prop.getProperty( "javaTempletPath" ).trim();
         DB_TEMPLET_PATH = prop.getProperty( "dbTempletPath" ).trim();
+        D_JAVA_TEMPLET_PATH = prop.getProperty( "dJavaTempletPath" ).trim();
+
         JAVA_PACKAGE_PATH = prop.getProperty( "javaPackagePath" ).trim();
         XML_PATH_IN_CONFIGJAVA_FILE = prop.getProperty( "xmlPathInConfigjavaFile" ).trim();
 
