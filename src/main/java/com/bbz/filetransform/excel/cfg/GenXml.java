@@ -7,9 +7,12 @@ import com.bbz.filetransform.excel.FieldElement;
 import com.bbz.filetransform.excel.FieldElimentManager;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
+import com.bbz.tool.common.FileUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+
+import java.io.File;
 
 /**
  * 根据excel文件构建xml文档
@@ -49,28 +52,37 @@ class GenXml extends AbstractGen{
         sb.append( "</" ).append( className ).append( "s" ).append( ">" );
         //System.out.println( sb.toString() );
 
-        String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + "/" + Util.firstToLowCase( className ) + ".xml";
+        String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".xml";
+        FileUtil.writeTextFile( path, sb.toString() );
+//        06911523
     }
 
+    @SuppressWarnings("UnusedDeclaration")
+    private void printRow( Row row ){
+        for( Cell cell : row ) {
+            System.out.print( cell + " " );
+        }
+        System.out.println();
+
+    }
     public String genContent( Row row ){
-        //printRow( row );不出错，无需打印
+//
+//        printRow( row );
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for( FieldElement element : fields ) {
-            sb.append( "\"" ).append( element.getName() ).append( "\":" );
+            sb.append( "<" ).append( element.getName() ).append( ">" );
 
             Cell cell = row.getCell( i++ );
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( "\"" ).append( getCellStr( cell, element ) );
-            sb.append( "\"," );
+            sb.append( getCellStr( cell, element  ) );
+            sb.append( "</" ).append( element.getName() ).append( ">" );
 
         }
-        if( sb.length() > 1 ) {
-            sb.deleteCharAt( sb.length() - 1 );
-        }
         return sb.toString();
+
     }
 
 }

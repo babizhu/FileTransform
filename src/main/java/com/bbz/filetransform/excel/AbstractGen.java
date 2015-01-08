@@ -42,13 +42,14 @@ public class AbstractGen{
      */
     public String getCellStr( Cell cell, FieldElement fieldElement){
         String data = "";
-        if( cell == null ) {
+        if( cell == null) {
             if( isNumber(fieldElement) ) {
                 return "0";
 
             }
             return data;
         }
+
 
         cell.setCellType( Cell.CELL_TYPE_STRING );
         data = cell.getStringCellValue().trim();
@@ -61,6 +62,9 @@ public class AbstractGen{
         }
         if( fieldIsFloat( fieldElement )){
             data += "F";
+        }
+        if(data.equals( "" ) && isNumber( fieldElement ) ){
+            data = "0";
         }
         return data;
 
