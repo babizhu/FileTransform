@@ -25,6 +25,9 @@
         <module name="FileTransform" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="FileTransform" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 

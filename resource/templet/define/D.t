@@ -1,13 +1,14 @@
 package #packageName#;
 
-import com.hz.dafeiji.cfg.manual.define;
+import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 
 /**
  * 常数定义，自动生成，勿改
  * @author liukun
  * #date
  */
-public class D {
+ @SuppressWarnings("UnusedDeclaration")
+public class #CLASS_NAME# {
 	static {
 		reload();
 	}
@@ -25,7 +26,7 @@ public class D {
 		}
 
 		private static Boolean getBoolean(String s) {
-			return new Boolean(get(s));
+			return Boolean.valueOf( get( s ) );
 		}
 
 		private static String getString(String s) {
@@ -37,7 +38,7 @@ public class D {
 		}
 
 		private static String get(String s) {
-			return DefineTempletConfig.get(s).getValue().trim();
+			return DefineTempletCfg.get(s).getValue().trim();
 		}
 
 		private static double getDouble(String s) {

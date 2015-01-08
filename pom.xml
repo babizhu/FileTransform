@@ -108,6 +108,17 @@
         <!--</pluginManagement>-->
 
         <plugins>
+            <!--让maven采用java1.7编译-->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <optimize>true</optimize>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
 
             <!-- 打包源码一起发布到maven仓库中
             <plugin>
