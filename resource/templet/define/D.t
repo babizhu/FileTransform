@@ -12,6 +12,7 @@ public class #CLASS_NAME# {
 
 #FILEDS#
 		public static void reload() {
+		DefineTempletCfg.init();
 #RELOAD_ALL#
 		}
 		
