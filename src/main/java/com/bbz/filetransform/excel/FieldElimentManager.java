@@ -7,6 +7,7 @@ package com.bbz.filetransform.excel;
  * Time: 下午4:54
  */
 
+import lombok.Data;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.util.ArrayList;
@@ -16,24 +17,7 @@ import java.util.List;
  * 保存一个filed的相关信息
  */
 
-class FieldElement {
-    String annotation;//field的注释
-    String name;
-    String type;
-    boolean hasClient;
-
-    @Override
-    public String toString() {
-        return "FieldElement{" +
-                "annotation='" + annotation + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", hasClient=" + hasClient +
-                '}';
-    }
-}
-
-class FieldElimentManager {
+public class FieldElimentManager {
 
     private final Sheet sheet;
 

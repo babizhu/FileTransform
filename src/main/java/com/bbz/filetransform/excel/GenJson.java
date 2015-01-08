@@ -9,8 +9,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-import java.util.List;
-
 /**
  * 根据excel文件构建xml文档
  * Created with IntelliJ IDEA.
@@ -18,18 +16,16 @@ import java.util.List;
  * Date: 13-11-5
  * Time: 下午4:32
  */
-class GenJson{
+class GenJson extends AbstractGen{
 
-    private final List<FieldElement> fields;
     private final String className;
     private final String packageName;
-    private final Sheet sheet;
 
     public GenJson( String[] path, Sheet sheet ){
-        fields = new FieldElimentManager( sheet ).getFields();
+        super( new FieldElimentManager( sheet ).getFields(), sheet);
         className = path[1];
         packageName = path[0];
-        this.sheet = sheet;
+
     }
 
     void generate(){
@@ -59,28 +55,9 @@ class GenJson{
         String path = PathCfg.EXCEL_OUTPUT_JSON_PATH + packageName + "/" + Util.firstToLowCase( className ) + ".json";
 
         FileUtil.writeTextFile( path, sb.toString() );
-//        06911523
-//
-//                主险保单号  51021173898000019940
-//                保单号      51021103698000018283
-//                投保单号     06911523
-//                           512221441214002x
-//
-//                95519  1.2.8
-
-
     }
 
-    private void printRow( Row row ){
-        for( Cell cell : row ) {
-            cell.setCellType(Cell.CELL_TYPE_STRING);
-            String data = cell.getStringCellValue();
-            System.out.print( data + " " );
-        }
-        System.out.println();
-
-    }
-    private String genContent( Row row ){
+    public String genContent( Row row ){
         //printRow( row );不出错，无需打印
         StringBuilder sb = new StringBuilder();
         int i = 0;
@@ -88,29 +65,18 @@ class GenJson{
             sb.append( "\"" ).append( element.name ).append( "\":" );
 
             Cell cell = row.getCell( i++ );
-            String data = "";
-            if( cell != null ){
-                cell.setCellType(Cell.CELL_TYPE_STRING);
-                data = cell.getStringCellValue();
-            }
-            if( element.type.equals( "int" ) ) {
-                if( data.trim().isEmpty() ){
-                    data = "0";
-                }
-                int pointPos = data.indexOf( '.' );
-                if( pointPos != -1 ) {
-                    data = data.substring( 0, pointPos );//去掉末尾的.0
-                }
-            }
+
 
             //System.out.println( row.getCell(i++) );
-            sb.append( "\"" + data );
+            sb.append( "\"" ).append( getCellStr( cell, fieldIsIntOrLong(element) ) );
             sb.append( "\"," );
 
         }
-        if( sb.length() > 1 ){
+        if( sb.length() > 1 ) {
             sb.deleteCharAt( sb.length() - 1 );
         }
         return sb.toString();
     }
+
+
 }

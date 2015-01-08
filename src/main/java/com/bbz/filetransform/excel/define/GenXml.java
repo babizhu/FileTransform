@@ -1,33 +1,38 @@
-package com.bbz.filetransform.excel;
-
+package com.bbz.filetransform.excel.define;
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.AbstractGen;
+import com.bbz.filetransform.excel.FieldElement;
+import com.bbz.filetransform.excel.FieldElimentManager;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
+import com.bbz.tool.common.FileUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.io.File;
+
 /**
- * 根据excel文件构建xml文档
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 13-11-5
- * Time: 下午4:32
+ * user         LIUKUN
+ * time         2015-1-8 11:19
+ * 生成define类excle的xml文件
  */
-class GenXml extends AbstractGen{
+
+public class GenXml extends AbstractGen{
 
     private final String className;
     private final String packageName;
 
-    public GenXml( String[] path, Sheet sheet ){
-        super(new FieldElimentManager( sheet ).getFields(),sheet);
-        className = path[1];
-        packageName = path[0];
+    public GenXml( String className, String packageName, Sheet sheet ){
+
+        super( new FieldElimentManager( sheet ).getFields(), sheet );
+        this.className = className;
+        this.packageName = packageName;
+
     }
 
-    void generate(){
-
+    public void genXml(){
         StringBuilder sb = new StringBuilder( "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" );
         sb.append( "<" ).append( className ).append( "s" ).append( ">" );
         for( Row row : sheet ) {
@@ -40,13 +45,16 @@ class GenXml extends AbstractGen{
                 break;
             }
 
-            sb.append( "<" ).append( className ).append( ">" ).
-                    append( genContent( row ) ).append( "</" ).append( className ).append( ">" );
+            sb.append( "<" ).append( className ).
+                    append( genContent( row ) ).append( " />" );
         }
         sb.append( "</" ).append( className ).append( "s" ).append( ">" );
-        //System.out.println( sb.toString() );
+//        System.out.println( sb.toString() );
 
-        String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + "/" + Util.firstToLowCase( className ) + ".xml";
+        String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".xml";
+        System.out.println( path);
+        FileUtil.writeTextFile( path, sb.toString() );
+
     }
 
     public String genContent( Row row ){
@@ -54,20 +62,20 @@ class GenXml extends AbstractGen{
         StringBuilder sb = new StringBuilder();
         int i = 0;
         for( FieldElement element : fields ) {
-            sb.append( "\"" ).append( element.name ).append( "\":" );
+            sb.append( " " ).append( element.getName() ).append( "=\"" );
 
             Cell cell = row.getCell( i++ );
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( "\"" ).append( getCellStr( cell, fieldIsIntOrLong(element) ) );
-            sb.append( "\"," );
+            sb.append( getCellStr( cell, fieldIsIntOrLong( element ) ) );
+            sb.append( "\" " );
 
         }
+
         if( sb.length() > 1 ) {
             sb.deleteCharAt( sb.length() - 1 );
         }
         return sb.toString();
     }
-
 }

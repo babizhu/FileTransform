@@ -5,13 +5,13 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/PathCfg.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/AbstractGenJava.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/FieldElimentManager.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenConfig.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenJson.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenTemplet.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenTempletCfg.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXmlAndCfg.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/Launch.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/ParseExcel.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/templet/TempletFile.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/templet/TempletType.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/util/D.java" charset="UTF-8" />

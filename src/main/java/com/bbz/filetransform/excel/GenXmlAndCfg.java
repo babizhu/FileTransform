@@ -2,6 +2,7 @@ package com.bbz.filetransform.excel;
 
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.define.GenDefine;
 import com.bbz.filetransform.templet.TempletFile;
 import com.bbz.filetransform.templet.TempletType;
 import com.bbz.filetransform.util.D;
@@ -33,7 +34,7 @@ public class GenXmlAndCfg {
     }
 
     public void genAll( String path ){
-        System.out.println( "遍历excel目录：" + path );
+        //System.out.println( "遍历excel目录：" + path );
         File dir = new File( path );
         File[] files = dir.listFiles();
 
@@ -45,19 +46,30 @@ public class GenXmlAndCfg {
             String strFileName = file.getAbsolutePath();
 
             if( file.isDirectory() ) {
-                if( !strFileName.endsWith( "define" )){//define目录中是D.java的内容不能采取这个方法生成
-
-                    genAll( file.getAbsolutePath() );
-                }
+                genAll( file.getAbsolutePath() );
             } else {
-
                 System.out.println( "开始处理 " + strFileName );
-                genOne( strFileName );
-                System.out.println( "处理完毕 " + strFileName );
+
+                if(file.getParent().endsWith( "define" ) ){
+                    buildDefineJava( strFileName );
+                }else {
+//
+                    genOne( strFileName );
+                }
+//                System.out.println( "处理完毕 " + strFileName );
 
             }
         }
         buildCfgInit();
+
+    }
+
+    /**
+     * 根据define目录下的文件生成相应的常规属性JAVA文件（D.java）
+     * @param fullExcelPath       完整的的excel文件路径
+     */
+    private void buildDefineJava( String fullExcelPath ){
+        new GenDefine( fullExcelPath ).generate();
     }
 
     /**
@@ -79,8 +91,8 @@ public class GenXmlAndCfg {
 
     }
 
-    private void genOne( String realPath ){
-        ParseExcel pe = new ParseExcel( realPath );
+    private void genOne( String fullExcelPath ){
+        GenConfig pe = new GenConfig( fullExcelPath );
         pe.gen();
         String separator = System.getProperties().getProperty( "line.separator" );
         packageImportStr += pe.getImportStr() + separator;
