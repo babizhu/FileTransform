@@ -9,9 +9,7 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
  */
  @SuppressWarnings("UnusedDeclaration")
 public class #CLASS_NAME# {
-	static {
-		reload();
-	}
+
 #FILEDS#
 		public static void reload() {
 #RELOAD_ALL#
