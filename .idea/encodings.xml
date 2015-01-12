@@ -12,6 +12,7 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenTempletCfg.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenXml.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenXmlAndCfg.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJson.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/templet/TempletFile.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/templet/TempletType.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/util/D.java" charset="UTF-8" />

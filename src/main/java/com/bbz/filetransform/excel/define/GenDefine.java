@@ -47,6 +47,7 @@ public class GenDefine{
 
         new GenXml( className, packageName, sheet ).genXml();
         new GenJava( className,packageName,sheet ).genJAVA();
+        new GenJson( className,packageName,sheet ).genJson();
 
     }
 
