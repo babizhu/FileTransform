@@ -144,6 +144,9 @@ public class GenJava extends AbstractGen{
         if( type.equals( "float" ) ) {
             value += "F";
         }
+        if( type.equalsIgnoreCase( "string" )){
+            value = "\"" + value + "\"";
+        }
         sb.append( value ).append( ";" );
         return sb.toString();
 
