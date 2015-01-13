@@ -10,6 +10,8 @@ import com.bbz.filetransform.util.Util;
 import com.bbz.tool.common.FileUtil;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.io.File;
+
 
 abstract class AbstractGenJava implements IGen{
 
@@ -86,7 +88,7 @@ abstract class AbstractGenJava implements IGen{
      * 处理自定义的内容，不要误删除了
      */
     protected void writeFile(){
-        String path = PathCfg.EXCEL_OUTPUT_JAVA_PATH + packageName + "/" + className + D.JAVA_FILE_SUFFIXES;
+        String path = PathCfg.EXCEL_OUTPUT_JAVA_PATH + packageName + File.separator + className + D.JAVA_FILE_SUFFIXES;
         String manualContent = "";
         if( Util.isExist( path ) ) {
             String oldData = FileUtil.readTextFile( path );

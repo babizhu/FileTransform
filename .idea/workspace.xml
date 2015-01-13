@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="227443e5-e674-4038-8e6a-2e4493713c88" name="Default" comment="修正了Define.java客户端的json文件生成">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJava.java" afterPath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJava.java" />
+    <list default="true" id="227443e5-e674-4038-8e6a-2e4493713c88" name="Default" comment="文件/的问题，用File.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java" afterPath="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FileTransform.iws" />
@@ -39,18 +39,28 @@
       <file leaf-file-name="GenJson.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenJson.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="192" max-vertical-offset="1312">
+            <state vertical-scroll-proportion="0.0" vertical-offset="336" max-vertical-offset="1456">
               <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenJava.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GenJava.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJava.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1685823" vertical-offset="1550" max-vertical-offset="2368">
-              <caret line="147" column="40" selection-start-line="147" selection-start-column="40" selection-end-line="147" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1550" max-vertical-offset="2368">
+              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractGenJava.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7356322" vertical-offset="896" max-vertical-offset="1648">
+              <caret line="90" column="83" selection-start-line="90" selection-start-column="69" selection-end-line="90" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -69,7 +79,7 @@
       <file leaf-file-name="Lancher.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/Lancher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="208" max-vertical-offset="368">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="368">
               <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
@@ -147,7 +157,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenXml.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/GenXml.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/FieldElement.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGen.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenTemplet.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/FieldElimentManager.java" />
@@ -160,6 +169,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenJson.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJava.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java" />
       </list>
     </option>
   </component>
@@ -249,6 +259,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -385,108 +397,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filetransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="excel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filetransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="excel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="define" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FileTransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="filetransform" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="excel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cfg" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -947,7 +859,8 @@
       <workItem from="1420708407029" duration="28000" />
       <workItem from="1420708444253" duration="378000" />
       <workItem from="1421028222945" duration="2639000" />
-      <workItem from="1421126839427" duration="169000" />
+      <workItem from="1421126839427" duration="786000" />
+      <workItem from="1421130867262" duration="106000" />
     </task>
     <task id="LOCAL-00001" summary="解决了propties文件的中文字符集问题，确保该文件采用utf-8的方式保存">
       <created>1419575860515</created>
@@ -1009,11 +922,15 @@
       <created>1421029781030</created>
       <updated>1421029781030</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="修正了Define.java文件的String类型的常量没有“”包起来的bug">
+      <created>1421127033911</created>
+      <updated>1421127033911</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47303000" />
+    <option name="totallyTimeSpent" value="48026000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="916" extended-state="0" />
@@ -1036,7 +953,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2360515" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23891273" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2353362" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1074,7 +991,8 @@
     <MESSAGE value="重构了一下代码，增加了D.java的相关代码" />
     <MESSAGE value="重构了一下代码，增加了Define.java的相关代码" />
     <MESSAGE value="增加了Define.java客户端的json文件生成" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加了Define.java客户端的json文件生成" />
+    <MESSAGE value="修正了Define.java文件的String类型的常量没有“”包起来的bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修正了Define.java文件的String类型的常量没有“”包起来的bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1334,13 +1252,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="1648">
-          <caret line="50" column="34" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/FieldElimentManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6" max-vertical-offset="768">
@@ -1445,14 +1356,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/Lancher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="368">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/GenConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1328">
@@ -1479,8 +1382,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/define/GenJava.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1685823" vertical-offset="1550" max-vertical-offset="2368">
-          <caret line="147" column="40" selection-start-line="147" selection-start-column="40" selection-end-line="147" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1550" max-vertical-offset="2368">
+          <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/Lancher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="368">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bbz/filetransform/excel/cfg/AbstractGenJava.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7356322" vertical-offset="896" max-vertical-offset="1648">
+          <caret line="90" column="83" selection-start-line="90" selection-start-column="69" selection-end-line="90" selection-end-column="83" />
           <folding />
         </state>
       </provider>
