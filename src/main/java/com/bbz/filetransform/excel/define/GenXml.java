@@ -1,38 +1,42 @@
 package com.bbz.filetransform.excel.define;
 
 import com.bbz.filetransform.PathCfg;
-import com.bbz.filetransform.excel.AbstractGen;
-import com.bbz.filetransform.excel.FieldElement;
-import com.bbz.filetransform.excel.FieldElimentManager;
+import com.bbz.filetransform.excel.ExcelColumn;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
-import com.bbz.tool.common.FileUtil;
+import com.bbz.filetransform.base.ExcelUtil;
+import com.bbz.tool.common.StrUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * user         LIUKUN
- * time         2015-1-8 11:19
- * 生成define类excle的xml文件
+ * time         2015-3-5 14:21
+ * <p/>
+ * 生成excel常量配置文件相对应的xml文件
  */
 
-public class GenXml extends AbstractGen{
+class GenXml extends AbstractGenDefine{
 
-    private final String className;
-    private final String packageName;
 
-    public GenXml( String className, String packageName, Sheet sheet ){
+    public GenXml( String className, String packageName, Sheet sheet,List<ExcelColumn> excelColumns ){
 
-        super( new FieldElimentManager( sheet ).getFields(), sheet );
-        this.className = className;
-        this.packageName = packageName;
-
+        super( className, packageName, sheet, excelColumns );
     }
 
-    public void genXml(){
+    @Override
+    protected String fileName(){
+        return PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".xml";
+    }
+
+    @Override
+    protected void gen(){
+
+
         StringBuilder sb = new StringBuilder( "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" );
         sb.append( "<" ).append( className ).append( "s" ).append( ">" );
         for( Row row : sheet ) {
@@ -46,36 +50,33 @@ public class GenXml extends AbstractGen{
             }
 
             sb.append( "<" ).append( className ).
-                    append( genContent( row ) ).append( " />" );
+                    append( genRowContent( row ) ).append( " />" );
         }
         sb.append( "</" ).append( className ).append( "s" ).append( ">" );
-//        System.out.println( sb.toString() );
 
-        String path = PathCfg.EXCEL_OUTPUT_XML_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".xml";
-//        System.out.println( path);
-        FileUtil.writeTextFile( path, sb.toString() );
-
+        content = sb.toString();
+        writeFile();
     }
 
-    public String genContent( Row row ){
+    @Override
+    String genRowContent( Row row ){
         //printRow( row );不出错，无需打印
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        for( FieldElement element : fields ) {
+        for( ExcelColumn element : excelColumns ) {
             sb.append( " " ).append( element.getName() ).append( "=\"" );
 
             Cell cell = row.getCell( i++ );
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( getCellStr( cell, element  ) );
+            sb.append( ExcelUtil.getCellStr( cell, element ) );
             sb.append( "\" " );
 
         }
 
-        if( sb.length() > 1 ) {
-            sb.deleteCharAt( sb.length() - 1 );
-        }
+
+        StrUtil.removeLastChar( sb );
         return sb.toString();
     }
 }

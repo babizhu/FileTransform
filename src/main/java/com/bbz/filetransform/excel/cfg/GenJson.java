@@ -2,15 +2,17 @@ package com.bbz.filetransform.excel.cfg;
 
 
 import com.bbz.filetransform.PathCfg;
-import com.bbz.filetransform.excel.AbstractGen;
-import com.bbz.filetransform.excel.FieldElement;
-import com.bbz.filetransform.excel.FieldElimentManager;
+import com.bbz.filetransform.excel.ExcelColumn;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
-import com.bbz.tool.common.FileUtil;
+import com.bbz.filetransform.base.ExcelUtil;
+import com.bbz.tool.common.StrUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * 根据excel文件构建json文档
@@ -19,19 +21,20 @@ import org.apache.poi.ss.usermodel.Sheet;
  * Date: 13-11-5
  * Time: 下午4:32
  */
-class GenJson extends AbstractGen{
+class GenJson extends AbstractGenCfg{
 
-    private final String className;
-    private final String packageName;
+    public GenJson( String className, String packageName, Sheet sheet,List<ExcelColumn> excelColumns ){
 
-    public GenJson( String[] path, Sheet sheet ){
-        super( new FieldElimentManager( sheet ).getFields(), sheet);
-        className = path[1];
-        packageName = path[0];
-
+        super( className, packageName, sheet, excelColumns );
     }
 
-    void generate(){
+    @Override
+    protected String fileName(){
+        return PathCfg.EXCEL_OUTPUT_JSON_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".json";
+    }
+
+    @Override
+    protected void gen(){
 
         StringBuilder sb = new StringBuilder( "{\"" );
         //sb.append( className ).append( "s" ).append( "\":[" );
@@ -47,31 +50,29 @@ class GenJson extends AbstractGen{
             }
 
             sb.append( "{" ).
-                    append( genContent( row ) ).append( "}," );
+                    append( genRowContent( row ) ).append( "}," );
         }
-        if( sb.length() > 1 ){
-            sb.deleteCharAt( sb.length() - 1 );
-        }
+        StrUtil.removeLastChar( sb );
         sb.append( "]}" );
         //System.out.println( sb.toString() );
 
-        String path = PathCfg.EXCEL_OUTPUT_JSON_PATH + packageName + "/" + Util.firstToLowCase( className ) + ".json";
+        content = sb.toString();
 
-        FileUtil.writeTextFile( path, sb.toString() );
+        writeFile();
     }
 
-    public String genContent( Row row ){
-        //printRow( row );不出错，无需打印
+
+    String genRowContent( Row row ){
         StringBuilder sb = new StringBuilder();
         int i = 0;
-        for( FieldElement element : fields ) {
+        for( ExcelColumn element : excelColumns ) {
             sb.append( "\"" ).append( element.getName() ).append( "\":" );
 
             Cell cell = row.getCell( i++ );
 
 
             //System.out.println( row.getCell(i++) );
-            sb.append( "\"" ).append( getCellStr( cell, element ) );
+            sb.append( "\"" ).append( ExcelUtil.getCellStr( cell, element ) );
             sb.append( "\"," );
 
         }

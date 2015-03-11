@@ -1,59 +1,91 @@
 package com.bbz.filetransform.excel.define;
 
 import com.bbz.filetransform.PathCfg;
-import com.bbz.filetransform.excel.AbstractGen;
-import com.bbz.filetransform.excel.FieldElimentManager;
+import com.bbz.filetransform.excel.ExcelColumn;
 import com.bbz.filetransform.templet.TempletFile;
 import com.bbz.filetransform.templet.TempletType;
 import com.bbz.filetransform.util.D;
-import com.bbz.tool.common.FileUtil;
+import com.bbz.filetransform.base.ExcelUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * user         LIUKUN
- * time         2015-1-8 11:19
- * 生成define类D.java文件
+ * time         2015-3-5 14:21
+ *
+ * 生成excel常量配置文件相对应的JAVA文件
  */
 
-public class GenJava extends AbstractGen{
+class GenJava extends AbstractGenDefine{
 
-    private final String className;
-    private final String packageName;
-    public static final String templetFileName = "D.t";
-    private String src = new TempletFile( TempletType.DJAVA, templetFileName ).getTempletStr();
 
-    public GenJava( String className, String packageName, Sheet sheet ){
 
-        super( new FieldElimentManager( sheet ).getFields(), sheet );
-        this.className = className;
-        this.packageName = packageName;
+    /**
+     * 模板文件
+     */
+    private static final String templetFileName = "D.t";
+
+
+
+    GenJava( String className, String packageName, Sheet sheet,  List<ExcelColumn> excelColumns ){
+        super( className, packageName, sheet, excelColumns );
 
     }
 
-    public void genJAVA(){
-        String packageInFile = PathCfg.JAVA_PACKAGE_PATH + packageName;
+    @Override
+    protected String fileName(){
+        System.out.println(PathCfg.EXCEL_OUTPUT_JAVA_PATH + packageName + File.separator + className + ".java");
+        return PathCfg.EXCEL_OUTPUT_JAVA_PATH + packageName + File.separator + className + ".java";
+    }
 
-        src = src.
+    @Override
+    protected void gen(){ String packageInFile = PathCfg.JAVA_PACKAGE_PATH + packageName;
+        content = new TempletFile( TempletType.DJAVA, templetFileName ).getTempletStr();
+        content = content.
                 replace( D.DATE_TAG, DateFormat.getDateTimeInstance().format( new Date() ) ).
                 replace( "#FILEDS#", genFileds() ).
                 replace( "#RELOAD_ALL#", genReloadAll() ).
                 replace( "#CLASS_NAME#", className ).
-                replace( D.PACAKAGE_NAME_TAG, packageInFile );
+                replace( "#packageName#", packageInFile );
 
 
-        String path = PathCfg.EXCEL_OUTPUT_JAVA_PATH + packageName + File.separator + className + ".java";
-        System.out.println( path );
-        FileUtil.writeTextFile( path, src );
+        writeFile();
 
     }
 
+    @Override
+    String genRowContent( Row row ){
+        //printRow( row );不出错，无需打印
+        StringBuilder sb = new StringBuilder();
+
+        String comment = ExcelUtil.getCellStr( row.getCell( 3 ), excelColumns.get( 3 ) );//注释
+        sb.append( "/** " ).append( comment ).append( " **/\r\n" );
+
+        String type = ExcelUtil.getCellStr( row.getCell( 1 ), excelColumns.get( 1 ) );//变量类型
+        sb.append( "public static " ).append( type ).append( " " );
+
+        String name = ExcelUtil.getCellStr( row.getCell( 0 ), excelColumns.get( 0 ) );//变量名
+        sb.append( name ).append( " = " );
+
+        String value = ExcelUtil.getCellStr( row.getCell( 2 ), excelColumns.get( 2 ) );//变量值
+        if( type.equalsIgnoreCase( "float" ) ) {
+            value += "F";
+        }
+
+        if( type.equalsIgnoreCase( "string" )){
+            value = "\"" + value + "\"";
+        }
+        sb.append( value ).append( ";" );
+        return sb.toString();
+    }
+
     /**
-     * 生成reload函数，方便动态修改Define.java的内容
+     * 生成reload函数，方便程序可在运行中修改Define.java的内容
      *
      */
     private String genReloadAll(){
@@ -86,7 +118,7 @@ public class GenJava extends AbstractGen{
                 break;
             }
 
-            sb.append( genContent( row ) );
+            sb.append( genRowContent( row ) );
         }
         return sb.toString();
     }
@@ -98,12 +130,12 @@ public class GenJava extends AbstractGen{
      *
      * @param row 一行excel数据
      */
-    public String genReloadAllContent( Row row ){
+    private String genReloadAllContent( Row row ){
         StringBuilder sb = new StringBuilder();
 
 
-        String type = getCellStr( row.getCell( 1 ), fields.get( 1 ) );//变量类型
-        String name = getCellStr( row.getCell( 0 ), fields.get( 0 ) );//变量名
+        String type = ExcelUtil.getCellStr( row.getCell( 1 ), excelColumns.get( 1 ) );//变量类型
+        String name = ExcelUtil.getCellStr( row.getCell( 0 ), excelColumns.get( 0 ) );//变量名
 
         sb.append( name ).append( " = " );
         switch( type ) {
@@ -127,28 +159,4 @@ public class GenJava extends AbstractGen{
         return sb.toString();
     }
 
-    public String genContent( Row row ){
-        //printRow( row );不出错，无需打印
-        StringBuilder sb = new StringBuilder();
-
-        String comment = getCellStr( row.getCell( 3 ), fields.get( 3 ) );//注释
-        sb.append( "/** " ).append( comment ).append( " **/\r\n" );
-
-        String type = getCellStr( row.getCell( 1 ), fields.get( 1 ) );//变量类型
-        sb.append( "public static " ).append( type ).append( " " );
-
-        String name = getCellStr( row.getCell( 0 ), fields.get( 0 ) );//变量名
-        sb.append( name ).append( " = " );
-
-        String value = getCellStr( row.getCell( 2 ), fields.get( 2 ) );//变量值
-        if( type.equals( "float" ) ) {
-            value += "F";
-        }
-        if( type.equalsIgnoreCase( "string" )){
-            value = "\"" + value + "\"";
-        }
-        sb.append( value ).append( ";" );
-        return sb.toString();
-
-    }
 }

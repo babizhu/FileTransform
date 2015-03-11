@@ -1,41 +1,42 @@
 package com.bbz.filetransform.excel.define;
 
-
 import com.bbz.filetransform.PathCfg;
-import com.bbz.filetransform.excel.AbstractGen;
-import com.bbz.filetransform.excel.FieldElimentManager;
+import com.bbz.filetransform.excel.ExcelColumn;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
-import com.bbz.tool.common.FileUtil;
+import com.bbz.filetransform.base.ExcelUtil;
+import com.bbz.tool.common.StrUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.io.File;
+import java.util.List;
+
 /**
- * 根据excel文件(define类文件)构建相应的json文档供客户端使用
- * Created with IntelliJ IDEA.
- * User: Administrator
- * Date: 13-11-5
- * Time: 下午4:32
+ * user         LIUKUN
+ * time         2015-3-5 14:21
+ *
+ * 生成excel常量配置文件相对应的JSON文件
  */
-class GenJson extends AbstractGen{
 
-    private final String className;
-    private final String packageName;
+class GenJson extends AbstractGenDefine{
 
-    public GenJson( String className, String packageName, Sheet sheet ){
+    public GenJson( String className, String packageName, Sheet sheet,List<ExcelColumn> excelColumns ){
 
-        super( new FieldElimentManager( sheet ).getFields(), sheet );
-        this.className = className;
-        this.packageName = packageName;
-
+        super( className, packageName, sheet, excelColumns );
     }
 
+    @Override
+    protected String fileName(){
+        return PathCfg.EXCEL_OUTPUT_JSON_PATH + packageName + File.separator + Util.firstToLowCase( className ) + ".json";
+    }
 
-    void genJson(){
+    @Override
+    protected void gen(){
+
 
         StringBuilder sb = new StringBuilder( "{");
-        //sb.append( className ).append( "s" ).append( "\":[" );
-        //sb.append( "arr" ).append( "s" ).append( "\":[" );//前端希望此处写死为arrs
+
         for( Row row : sheet ) {
             if( row.getRowNum() < D.EXCEL_HEAD_COUNT ) {
                 continue;
@@ -46,33 +47,25 @@ class GenJson extends AbstractGen{
                 break;
             }
 
-            sb.append( genContent( row ) ).append( "," );
+            sb.append( genRowContent( row ) ).append( "," );
         }
-        if( sb.length() > 1 ){
-            sb.deleteCharAt( sb.length() - 1 );
-        }
+        StrUtil.removeLastChar( sb );
         sb.append( "}" );
-        //sb.append( "]}" );
-        //System.out.println( sb.toString() );
 
-        String path = PathCfg.EXCEL_OUTPUT_JSON_PATH + packageName + "/" + Util.firstToLowCase( className ) + ".json";
-
-        FileUtil.writeTextFile( path, sb.toString() );
+        content = sb.toString();
+        writeFile();
     }
 
-    public String genContent( Row row ){
+    @Override
+    String genRowContent( Row row ){
+        String name = ExcelUtil.getCellStr( row.getCell( 0 ), excelColumns.get( 0 ) );//变量名
 
-        //printRow( row );不出错，无需打印
-        String name = getCellStr( row.getCell( 0 ), fields.get( 0 ) );//变量名
 
-
-        String value = getCellStr( row.getCell( 2 ), fields.get( 2 ) );//变量值
+        String value = ExcelUtil.getCellStr( row.getCell( 2 ), excelColumns.get( 2 ) );//变量值
         StringBuilder sb = new StringBuilder();
         sb.append( "\"" ).append( name ).append( "\":\"" ).append( value ).append( "\"" );
 
 
         return sb.toString();
     }
-
-
 }

@@ -1,93 +1,140 @@
 package com.bbz.filetransform.excel;
 
+import com.bbz.filetransform.util.D;
+import com.bbz.filetransform.util.Util;
+import com.bbz.tool.common.FileUtil;
+import com.bbz.tool.common.MiscUtil;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * user         LIUKUN
- * time         2015-1-8 10:58
+ * time         2015-3-10 11:19
  */
 
-public class AbstractGen{
-    public final List<FieldElement> fields;
-    public final Sheet sheet;
+public abstract class AbstractGen{
 
-    public AbstractGen( List<FieldElement> fields, Sheet sheet ){
-        this.fields = fields;
+    /**
+     * excel表
+     */
+    protected final Sheet sheet;
+
+    /**
+     * 生成的内容
+     */
+    protected String content;
+
+    /**
+     * 生成java文件的类名
+     */
+    protected String className;
+
+    /**
+     * 生成java文件的包名
+     */
+    protected final String packageName;
+
+
+    /**
+     * excel文件的列信息
+     */
+    protected final List<ExcelColumn> excelColumns;
+
+
+    protected AbstractGen(String className, String packageName, Sheet sheet, List<ExcelColumn> excelColumns){
+        this.className = className;
+        this.packageName = packageName;
         this.sheet = sheet;
+        this.excelColumns = excelColumns;
+
+    }
+    /**
+     *
+     * @param fullExcelPath  excel的文件路径 D:\飞机数值表\define\[定义]道具id表_PropIdDefine.xls
+     */
+    protected AbstractGen( String fullExcelPath ){
+
+        int lastPointIndex = fullExcelPath.lastIndexOf( '.' );
+        String purePath = fullExcelPath.substring( 0, lastPointIndex );
+        //D:\飞机数值表\define\[定义]道具id表_PropIdDefine
+
+        String[] path;
+        if( MiscUtil.isWindowsOS() ) {
+            path = purePath.split( File.separator + File.separator );
+        } else {
+            path = purePath.split( File.separator );
+        }
+        path = Arrays.copyOfRange( path, path.length - 2, path.length );//只保留最后2个元素
+        String temp = path[1];
+        path[1] = temp.substring( temp.indexOf( '_' ) + 1, temp.length() );//去除中文名称
+
+        className = path[1];//PropIdDefine
+        packageName = path[0];//define
+
+
+        sheet = openExcelFile( fullExcelPath );
+        excelColumns = new ExcelColumnManager( sheet ).getExcelColumns();
+    }
+
+
+
+    protected abstract String fileName();
+    protected abstract void gen();
+
+    /**
+     * 处理自定义的内容，不要误删除了
+     */
+    protected void writeFile(){
+        String path = fileName();
+        String manualContent = "";
+        if( Util.isExist( path ) ) {
+            String oldData = FileUtil.readTextFile( path );
+            int beginPos = oldData.indexOf(D.MANUAL_WORK_BEGIN);
+            int endPos = oldData.indexOf(D.MANUAL_WORK_END);
+            if( endPos != -1 && beginPos != -1 ) {
+                manualContent = oldData.substring(beginPos + D.MANUAL_WORK_BEGIN.length(), endPos);
+            }
+        }
+        content = content.replace(D.MANUAL_WORK_TAG, manualContent);//把自定义的内容加上去
+        FileUtil.writeTextFile(path, content);
+    }
+
+    private Sheet openExcelFile( String excelFile ){
+        Sheet sheet = null;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream( excelFile );
+            sheet = new HSSFWorkbook( fis ).getSheetAt( 0 );
+
+        } catch( Exception e ) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if( fis != null ) {
+                    fis.close();
+                }
+            } catch( IOException e ) {
+                e.printStackTrace();
+            }
+        }
+        return sheet;
     }
 
     @SuppressWarnings("UnusedDeclaration")
-    private void printRow( Row row ){
+    protected void printRow( Row row ){
         for( Cell cell : row ) {
-            cell.setCellType( Cell.CELL_TYPE_STRING );
-            String data = cell.getStringCellValue();
-            System.out.print( data + " " );
+            System.out.print( cell + " " );
         }
         System.out.println();
 
-    }
-
-    /**
-     * 从excel中获取单元格的字符串内容，int和long型的字符串末尾会产生".0"，因此这里也要过滤掉
-     * 如果cell为null，数字型（int,long,float,double）返回空”0“，其余情况返回""(空字符串)
-     * float型会在数字后面增加"F"
-     *
-     * @param cell          单元格
-     * @param fieldElement  字段
-     * @return      单元格的内容
-     */
-    public String getCellStr( Cell cell, FieldElement fieldElement){
-        String data = "";
-        if( cell == null) {
-            if( isNumber(fieldElement) ) {
-                return "0";
-
-            }
-            return data;
-        }
-
-
-        cell.setCellType( Cell.CELL_TYPE_STRING );
-        data = cell.getStringCellValue().trim();
-        if( fieldIsIntOrLong( fieldElement ) ) {
-
-            int pointPos = data.indexOf( '.' );
-            if( pointPos != -1 ) {
-                data = data.substring( 0, pointPos );//去掉末尾的.0
-            }
-        }
-        if( fieldIsFloat( fieldElement )){
-            data += "F";
-        }
-        if(data.equals( "" ) && isNumber( fieldElement ) ){
-            data = "0";
-        }
-        return data;
-
-    }
-
-    public boolean fieldIsIntOrLong( FieldElement fieldElement ){
-        return fieldElement.getType().equalsIgnoreCase( "int" ) || fieldElement.getType().equalsIgnoreCase( "long" );
-    }
-
-    public boolean fieldIsFloat( FieldElement fieldElement ){
-        //System.out.println(fieldElement.type );
-        return fieldElement.getType().equalsIgnoreCase( "float" );
-    }
-
-    /**
-     * 判断字段是否数字类型包括（int,long,double,float）
-     * @param fieldElement  字段
-     * @return  true    数字
-     *
-     */
-    public boolean isNumber( FieldElement fieldElement ){
-        return fieldElement.getType().equalsIgnoreCase( "int" ) || fieldElement.getType().equalsIgnoreCase( "long" ) ||
-        fieldElement.getType().equalsIgnoreCase( "double" ) || fieldElement.getType().equalsIgnoreCase( "float" );
     }
 
 }

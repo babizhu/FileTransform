@@ -2,12 +2,16 @@ package com.bbz.filetransform.excel.cfg;
 
 
 import com.bbz.filetransform.PathCfg;
+import com.bbz.filetransform.excel.ExcelColumn;
+import com.bbz.filetransform.templet.TempletFile;
+import com.bbz.filetransform.templet.TempletType;
 import com.bbz.filetransform.util.D;
 import com.bbz.filetransform.util.Util;
 import org.apache.poi.ss.usermodel.Sheet;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 通过xml生成相应的配置(config)文件
@@ -17,26 +21,50 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 
-class GenTempletCfg extends AbstractGenJava {
+class GenTempletCfg extends AbstractGenCfgJava{
 
     private final String templetClass;
     private final String xmlNode;
 
     /**
-     * @param path  仅包括包名和类名
-     * @param sheet excel的sheet
+     * 模板文件
      */
-    public GenTempletCfg(String[] path, Sheet sheet) {
-        super(path, sheet);
-        int pos = className.indexOf("Cfg");
-        templetClass = className.substring(0, pos);
-        xmlNode = path[1];
+    private static final String templetFileName = "templetCfg.t";
+
+
+    GenTempletCfg( String className, String packageName, Sheet sheet, List<ExcelColumn> excelColumns ){
+        super( className, packageName, sheet, excelColumns );
+        templetClass = className + "Templet";
+        this.className += "TempletCfg";
+        xmlNode = packageName;
+
     }
 
+    GenTempletCfg( String fullExcelPath ){
+        super( fullExcelPath );
+        templetClass = className + "Templet";
+        this.className += "TempletCfg";
+        xmlNode = packageName;
+    }
+
+
+    /**
+     //* @param path  仅包括包名和类名
+     //* @param sheet excel的sheet
+     */
+//    public GenTempletCfg( String[] path, Sheet sheet ) {
+//        super(path, sheet);
+//        int pos = className.indexOf("Cfg");
+//        templetClass = className.substring(0, pos);
+//        xmlNode = path[1];
+//    }
+
     @Override
-    public void gen() {
+    protected void gen() {
+        content = new TempletFile( TempletType.JAVA, templetFileName ).getTempletStr();
         genMisc();
         //System.out.println( src );
+
         writeFile();
 
     }
@@ -48,7 +76,7 @@ class GenTempletCfg extends AbstractGenJava {
         xmlPath = Util.firstToLowCase( xmlPath ) + ".xml";
         xmlPath = PathCfg.XML_PATH_IN_CONFIGJAVA_FILE + packageName + "/" + xmlPath;
 
-        src = src.
+        content = content.
                 replace(D.DATE_TAG, DateFormat.getDateTimeInstance().format(new Date())).
                 replace(D.CLASS_NAME_TAG, className).
                 replace(D.TEPMLET_CLASS_NAME_TAG, templetClass).
@@ -59,19 +87,9 @@ class GenTempletCfg extends AbstractGenJava {
 
     }
 
-    @Override
-    protected String getTempletFileName() {
-        return "templetCfg.t";
+    public static void main( String[] args ){
+        new GenTempletCfg( "D:\\phpStudy\\WWW\\server\\svn\\飞机数值表\\customs\\[关卡][怪物]怪物属性表_Monster.xls" ).gen();
     }
 
-    @Override
-    public String genClassName(String name) {
-        return Util.firstToUpperCase(name) + "TempletCfg";
-    }
-
-//    public static void main(String[] args) {
-//        GenTempletCfg g = new GenTempletCfg();
-//        g.generate();
-//    }
 
 }

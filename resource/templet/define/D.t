@@ -3,7 +3,7 @@ package #packageName#;
 import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 
 /**
- * 常数定义，自动生成，勿改
+ * 常数定义类，机器自动生成，勿改
  * @author liukun
  * #date
  */
